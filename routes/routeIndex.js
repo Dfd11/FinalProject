@@ -12,29 +12,25 @@ router.get("/", function(req,res){
 
 router.get("/login", function(req,res){
     //res.sendFile(path.join(__dirname,"login.html"));
-    res.send(`This is the LOGIN PAGE 
-    <form action="/" method="GET"><button>ROOT</button></form> 
-    <form action="/register" method="GET"><button>REGISTER</button></form>
-    <form action="/user/test" method="GET"><button>LOGIN TEST</button></form>`)
+    res.render("login")
 })
 
 router.get("/register", function(req,res){
     //res.sendFile(path.join(__dirname,"register.html"));
-    res.send(`This is the REGISTER PAGE 
-    <form action="/user/test" method="GET"><button>REGISTER TEST</button></form>
-    <form action="/" method="GET"><button>ROOT</button></form>`)
+    res.render("register")
 })
 
 router.get("/user/:user", function(req,res){
     //res.sendFile(path.join(__dirname,"home.html"));
-    res.send(`This is the '${req.params.user} HOME PAGE 
-    <form action="/${req.params.user}/devices" method="GET"><button>DEVICES</button></form>`)
+    let user = req.params.user
+    res.render("user",{user})
 })
 
 router.get("/:user/devices", function(req,res){
  //   res.sendFile(path.join(__dirname,"home.html"));
-    res.send(`This is the 'USERS DEVICES PAGE' 
-    <form action="/user/${req.params.user}" method="GET"><button>USER HOME</button></form>`)
+    let user = req.params.user
+    res.render("devices",{user})
+    
 })
 
 router.get("/copyright", function(req,res){
@@ -49,9 +45,7 @@ router.get("/about_us", function(req,res){
 
 router.get("/contact", function(req,res){
     //res.sendFile(path.join(__dirname,"home.html"));
-    res.send(`This is the 'CONTACT PAGE'
-    <form action="/" method="GET"><button>ROOT</button></form>
-    <form action="/user/test" method="GET"><button>USER HOME</button></form>`)
+    res.render("contact")
 })
 
 module.exports = router
