@@ -1,4 +1,57 @@
 <%- include (`./templates/_header`) %>
-This is the 'USERS DEVICES PAGE' 
-    <form action="/user/<%=user%>" method="GET"><button>USER HOME</button></form>
+<div>
+    <form action="/<%=user%>/devices" method="post">
+        <div>
+            <input type="text" name="deviceName" placeholder="Device Name">
+        </div>
+        <div>
+            <input type="text" name="deviceLocation" placeholder="Location of Device">
+        </div>
+        <div>
+            <label for="type">Device Type:</label>
+            <select name="deviceType">
+                <option value="webcam">Web Cam</option>
+                <option value="lock">Lock</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+        <button type="submit">Add Device</button>
+        
+    </form>
+    <a href="/user/<%=user%>"><button>Cancel</button></a>
+</div>
+<div>
+    
+    <% for( let locationindex = 0; locationindex < locations.length; locationindex++ ) { %>
+        <h3><%=locations[locationindex]%></h3>
+        <table>
+            <thead>
+                <tr>
+                        <th>Device Name</th>
+                        <th>Device Type</th>
+                        <th>IP</th>
+                </tr>
+        
+            </thead>
+            <tbody>
+        <% for( let index = 0; index < devices.length; index++ ) { %>
+                <% if (devices[index].deviceLocation === locations[locationindex]) { %>
+                    <tr>
+                        <td><%=devices[index].deviceName%></td>
+                        <td><%=devices[index].deviceType%></td>
+                        <td><strong><%=devices[index].deviceIp%></strong></td>
+                        <td>
+                        <a href="/edit/<%= devices[index]._id %>">Edit</a>
+                        <a href="/delete/<%=user%>/<%=devices[index]._id%>">Delete</a>
+                        </td>
+                    </tr>
+                <% } %>
+        <% } %>
+            </tbody>
+        </table>
+    <% } %>
+            
+</div>
+<!--This is the 'USERS DEVICES PAGE'
+    <form action="/user/test" method="GET"><button>USER HOME</button></form>-->
 <%- include (`./templates/_footer`) %>
