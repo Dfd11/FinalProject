@@ -67,7 +67,7 @@ router.post("/:user/devices", async (req,res) =>{                               
 router.get("/delete/:user/:id", async (req,res) =>{                                                   /** VERIFY */
     let id = req.params.id
     await Device.remove({_id:id})
-    res.redirect(`/${req.params.user}/devices`)                                                        /**ADD USER */
+    res.redirect(`/${req.params.user}/devices`)                                                        
 })
 
 module.exports = router
