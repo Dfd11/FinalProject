@@ -1,0 +1,84 @@
+body{
+    background-color: #FFFFFF  ;
+}
+
+.navbar{
+    display:inline-block;
+    align-content: flex-start;
+}
+
+.mui-panel{
+    background-color:#333333;
+}
+
+.left{
+    display:flex;
+    justify-content:flex-end;
+    
+}
+
+#travel{
+    margin-left:10px;
+    margin-right:5px;
+}
+
+
+#news{
+    display:flex;
+    justify-content:space-around;
+    margin:25px;
+    text-align: center;
+}
+
+#twi, #mega{
+    display:inline-block;
+    text-align: center;
+}
+
+#home{
+    margin-right: 5px;
+}
+
+h1{
+    color: #2B86EE;
+    font-weight: normal;
+    font-size: 20px;
+    font-family: Arial;
+}
+
+.center{
+    text-align: center;
+}
+
+p{
+    color: #878787;
+}
+
+
+
+.fa {
+    height:50px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    padding:10px;
+  }
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+
+  .fa-instagram {
+    background: #125688;
+    color: white;
+  }
