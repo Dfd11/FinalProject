@@ -1,5 +1,5 @@
 body{
-    background-color: #FFFFFF  ;
+    background-color: #FFFFFF;
 }
 
 .navbar{
@@ -25,7 +25,7 @@ body{
 
 #news{
     display:flex;
-    justify-content:space-around;
+    align-content:flex-start;
     margin:25px;
     text-align: center;
 }
@@ -33,6 +33,7 @@ body{
 #twi, #mega{
     display:inline-block;
     text-align: center;
+    align-content:flex-start;
 }
 
 #home{
@@ -54,7 +55,9 @@ p{
     color: #878787;
 }
 
-
+img { 
+    max-width: 100%; 
+}
 
 .fa {
     height:50px;
@@ -82,3 +85,80 @@ p{
     background: #125688;
     color: white;
   }
+
+.newsBox {
+    text-decoration: none;
+    color: rgb(8, 8, 8);
+    background-color: #fff;
+    padding: 25px;
+}
+
+.news {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-gap: 2.5rem;
+}
+
+#social{
+    display:flex;
+    justify-content:space-around;
+    margin:25px;
+    text-align: center;
+}
+
+
+/*Device = Tablets, Ipads (portrait)
+  Screen = B/w 768px to 1024px*/
+@media (min-width: 768px) and (max-width: 1024px)  {
+    .left{
+        display: flex;
+        justify-content:space-between;
+        text-align: center;
+        align-items: center;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px){
+    .left{
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    #twi, #mega{
+        display:inline-block;
+        flex-direction: column;
+        text-align: center;
+    }
+    #news{
+        display:flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #social{
+        display:flex;
+        display:run-in;
+    }
+}
+
+@media (max-width: 480px){
+    .left{
+        flex-direction: column;
+        text-align: center;
+    }
+    #twi, #mega{
+        display:inline-block;
+        flex-direction: column;
+        text-align: center;
+    }
+    #news{
+        display:flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #social{
+        display:flex;
+        flex-direction: column;
+    }
+}

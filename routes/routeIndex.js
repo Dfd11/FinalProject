@@ -11,7 +11,7 @@ const { db } = require('../model/device');
 router.get("/", function(req,res){
     //res.sendFile(path.join(__dirname,"home.html"));
     
-    axios.get(`http://api.mediastack.com/v1/news?access_key=a50b229b653dcd0bf6070d5ba6d7a944&categories=technology&languages=en,es&limit=10`)
+    axios.get(`http://api.mediastack.com/v1/news?access_key=a50b229b653dcd0bf6070d5ba6d7a944&categories=technology&languages=en,es&limit=5`)
     .then(response =>{
         const apiResponse = response.data;
         console.log(apiResponse);
