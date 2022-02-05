@@ -9,17 +9,18 @@
 
 <div class="mui-container-fluid" id="news" >
 
-  <div class="mui-col-md-6" id="twi">
-  </div>
 
-  <div class="mui-col-md-6" id="mega">
-
-    <% if(articles != null) { %> 
+    <div class="mui-col-md-6" id="twi">
+    </div>
+  
+    <div class="mui-col-md-6" id="mega">
+    <div class="news">
+        <% if(articles != null) { %> 
       <% articles.forEach(function(article, index) { %>
-          <div class="mui-col-md-4"> 
-          <a href="<%- article.url %>" target="_blank">
+          
+          <a href="<%- article.url %>" class="news__newsBox" target="_blank">
               <% if(article.image != null) { %> 
-                  <img src="<%- article.image %>" alt="<% article.title %>">
+                  <img src="<%- article.image %>" alt="<% article.title%>" class="resize">
               <% } else { %>
                   <img src="https://mediastack.com/site_images/mediastack_logo_footer.svg" alt="default image">
               <% } %> 
@@ -36,13 +37,15 @@
                   Source: <%- article.source %>
               </p>
           </a>
-        </div>
-        <div class="mui-divider"></div>
+        
       <% }) %> 
       <% } else { %> 
           <p>No posts found</p>
       <% } %> 
-  </div>
+    </div>
+    </div>
+
+  
 
 </div>
 
