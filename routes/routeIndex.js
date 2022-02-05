@@ -1,5 +1,6 @@
 /*----------------------------------------------------------------------------------------------------Libraries*/
 const express = require('express');
+const axios = require('axios')
 const router = express();
 let bcrypt = require("bcrypt");
 let jwt = require("jsonwebtoken");
@@ -9,8 +10,17 @@ const { db } = require('../model/device');
 /*----------------------------------------------------------------------------------------------------Routes */
 router.get("/", function(req,res){
     //res.sendFile(path.join(__dirname,"home.html"));
-    res.render("gen_home")
     
+    axios.get(`http://api.mediastack.com/v1/news?access_key=a50b229b653dcd0bf6070d5ba6d7a944&categories=technology&languages=en,es&limit=10`)
+    .then(response =>{
+        const apiResponse = response.data;
+        console.log(apiResponse);
+        res.render('gen_home', { articles : apiResponse.data })
+    }).catch(error => {
+        console.log(error);
+    });
+    //res.render('/', { articles : newsAPI.data.data }) 
+    //res.render("gen_home")  
 })
 
 router.get("/login", function(req,res){
