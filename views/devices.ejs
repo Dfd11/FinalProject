@@ -1,5 +1,6 @@
 <%- include (`./templates/_header`) %>
-<div>
+
+<div style="justify-content: center;display: flex; flex-direction: column; margin: 5%;">
     <form class="mui-form" id="device_form" action="/<%=user%>/devices" method="post" >
         <div class="mui-textfield">
             <input type="text" name="deviceName" placeholder="Device Name">
@@ -18,9 +19,10 @@
         <button type="submit" class="mui-btn mui-btn--raised">Add Device</button>
         
     </form>
+    <br>
     <a href="/user/<%=user%>"><button class="mui-btn mui-btn--raised">Cancel</button></a>
 </div>
-<div>
+<div style="margin: 5% ;display: flex; flex-direction: column;">
     
     <% for( let locationindex = 0; locationindex < locations.length; locationindex++ ) { %>
         <div class="mui--text-headline">
