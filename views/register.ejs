@@ -1,5 +1,34 @@
 <%- include (`./templates/_header`) %>
-This is the REGISTER PAGE 
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <!--<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+    <center>
+        <div class="span3">
+            <h2>Sign Up</h2>
+            <form action="/addUser" method="POST">
+                <label>Username</label>
+                <input type="text" name="username" class="span3">
+                <label>Email Address</label>
+                <input type="email" name="email" class="span3">
+                <label>Password</label>
+                <input type="password" name="password" class="span3">
+                <input type="submit" value="Submit" class="btn btn-primary pull-right" action="/gen_home" method="GET">
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </center>
+</body>
+</html>
+
+<!--This is the REGISTER PAGE 
     <form action="/user/test" method="GET"><button>REGISTER TEST</button></form>
-    <form action="/" method="GET"><button>ROOT</button></form>
+    <form action="/" method="GET"><button>ROOT</button></form> -->
+    
 <%- include (`./templates/_footer`) %>

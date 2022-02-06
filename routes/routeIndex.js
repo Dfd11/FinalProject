@@ -2,8 +2,10 @@
 const express = require('express');
 const axios = require('axios')
 const router = express();
+const User = require('../model/user');
 let bcrypt = require("bcrypt");
 let jwt = require("jsonwebtoken");
+let verify = require('../middleware/verifyAccess')
 /*----------------------------------------------------------------------------------------------------Models */
 let Device = require("../model/device");
 const { db } = require('../model/device');
@@ -94,4 +96,67 @@ router.post("/edit/:user/:id", async (req,res) =>{                              
     await Device.updateOne({_id:id},req.body)
     res.redirect(`/${user}/devices`)                                                   
 })
+
+
+router.post('/login', async (req,res) => {
+    
+    let username = req.body.username
+    let plainpassword = req.body.password
+
+    let user = await User.findOne({username: username})
+
+    // No existe usuario
+    if (!user) {
+        res.redirect("/login")
+    }
+
+    // Existe usuario
+    else {
+        let valid = await bcrypt.compareSync(plainpassword, user.password)
+
+        if (valid) {
+
+            let token = jwt.sign({id:user.username}, process.env.SECRET, {expiresIn:"1h"});
+            console.log(token)
+            res.cookie("token", token,{httpOnly:true})
+            res.redirect("/")
+        }
+
+        else {
+            res.redirect("/login")
+        }
+    }
+
+    
+})
+
+
+router.post('/addUser', async (req,res) => {
+
+    let user = new User (req.body)
+
+    let exists = User.findOne({user_id: user.username})
+
+    if (!exists) {
+    
+        // Hash a la contraseña
+
+        user.password = bcrypt.hashSync(user.password,10)
+
+        await user.save()
+
+        res.redirect('/login')
+    }
+    else {
+        
+        res.redirect('/register')
+    }
+    
+})
+
+router.get("/logoff", (req,res) => {
+    res.clearCookie("token")
+    res.redirect("/")
+})
+
 module.exports = router
