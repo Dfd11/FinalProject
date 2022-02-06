@@ -14,7 +14,7 @@ router.get("/", function(req,res){
     axios.get(`http://api.mediastack.com/v1/news?access_key=a50b229b653dcd0bf6070d5ba6d7a944&categories=technology&languages=en,es&limit=5`)
     .then(response =>{
         const apiResponse = response.data;
-        console.log(apiResponse);
+        //console.log(apiResponse);
         res.render('gen_home', { articles : apiResponse.data })
     }).catch(error => {
         console.log(error);
@@ -83,7 +83,7 @@ router.get("/delete/:user/:id", async (req,res) =>{                             
 router.get("/edit/:user/:id", async (req,res) =>{                                                   /** VERIFY */
     let user = req.params.user
     let id = req.params.id
-    let device = await Device.findById(id)
+    let device =await Device.findById(id)
     console.log(device)
     res.render("edit",{device,user,id})                                                        
 })
