@@ -1,13 +1,13 @@
 <%- include (`./templates/_header`) %>
 <div>
-    <form action="/<%=user%>/devices" method="post">
-        <div>
+    <form class="mui-form" id="device_form" action="/<%=user%>/devices" method="post" >
+        <div class="mui-textfield">
             <input type="text" name="deviceName" placeholder="Device Name">
         </div>
-        <div>
+        <div class="mui-textfield">
             <input type="text" name="deviceLocation" placeholder="Location of Device">
         </div>
-        <div>
+        <div class="mui-select">
             <label for="type">Device Type:</label>
             <select name="deviceType">
                 <option value="webcam">Web Cam</option>
@@ -15,16 +15,18 @@
                 <option value="light">Light</option>
             </select>
         </div>
-        <button type="submit">Add Device</button>
+        <button type="submit" class="mui-btn mui-btn--raised">Add Device</button>
         
     </form>
-    <a href="/user/<%=user%>"><button>Cancel</button></a>
+    <a href="/user/<%=user%>"><button class="mui-btn mui-btn--raised">Cancel</button></a>
 </div>
 <div>
     
     <% for( let locationindex = 0; locationindex < locations.length; locationindex++ ) { %>
-        <h3><%=locations[locationindex]%></h3>
-        <table>
+        <div class="mui--text-headline">
+            <h3 ><%=locations[locationindex]%></h3>
+        </div>
+        <table class="mui-table mui-table--bordered">
             <thead>
                 <tr>
                         <th>Device Name</th>
@@ -41,8 +43,8 @@
                         <td><%=devices[index].deviceType%></td>
                         <td><strong><%=devices[index].deviceIp%></strong></td>
                         <td>
-                        <a href="/edit/<%= devices[index]._id %>">Edit</a>
-                        <a href="/delete/<%=user%>/<%=devices[index]._id%>">Delete</a>
+                        <a href="/edit/<%=user%>/<%= devices[index]._id %>"><button class="mui-btn mui-btn--primary">Edit</button></a>
+                        <a href="/delete/<%=user%>/<%=devices[index]._id%>"><button class="mui-btn mui-btn--danger">Delete</button></a>
                         </td>
                     </tr>
                 <% } %>

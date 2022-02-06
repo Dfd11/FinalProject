@@ -80,4 +80,18 @@ router.get("/delete/:user/:id", async (req,res) =>{                             
     res.redirect(`/${req.params.user}/devices`)                                                        
 })
 
+router.get("/edit/:user/:id", async (req,res) =>{                                                   /** VERIFY */
+    let user = req.params.user
+    let id = req.params.id
+    let device = await Device.findById(id)
+    console.log(device)
+    res.render("edit",{device,user,id})                                                        
+})
+
+router.post("/edit/:user/:id", async (req,res) =>{                                                   /** VERIFY */
+    let user = req.params.user
+    let id = req.params.id
+    await Device.updateOne({_id:id},req.body)
+    res.redirect(`/${user}/devices`)                                                   
+})
 module.exports = router

@@ -1,0 +1,28 @@
+<%- include (`./templates/_header`) %>
+<div>
+    <form class="mui-form" id="device_form" action="/edit/<%=user%>/<%=id%>" method="post" >
+        <div class="mui-textfield">
+            <input type="text" name="deviceName" placeholder="Device Name" value="<%= device.deviceName %> ">
+        </div>
+        <div class="mui-textfield">
+            <input type="text" name="deviceLocation" placeholder="Location of Device" value="<%= device.deviceLocation %> ">
+        </div>
+        <div class="mui-select">
+            <label for="type">Device Type:</label>
+            <select name="deviceType" value="<%= device.deviceType %>">
+                <option value="webcam">Web Cam</option>
+                <option value="lock">Lock</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+        <button type="submit" class="mui-btn mui-btn--raised">Save Device</button>
+        
+    </form>
+    <a href="/<%=user%>/devices"><button class="mui-btn mui-btn--raised">Cancel</button></a>
+</div>
+<div>
+            
+</div>
+<!--This is the 'USERS DEVICES PAGE'
+    <form action="/user/test" method="GET"><button>USER HOME</button></form>-->
+<%- include (`./templates/_footer`) %>
