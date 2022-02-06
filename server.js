@@ -3,6 +3,7 @@ let express = require("express");
 const mongoose = require("mongoose");
 let dotenv = require("dotenv");
 const morgan = require("morgan")
+let cookieParser = require("cookie-parser");
                                                                                                 /*COOKIE PARSER*/
                                                                                                 /*DOTENV*/
 
@@ -31,6 +32,7 @@ app.set('view engine','ejs')
 //To be able to read json
 app.use(morgan("dev"))
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.static("public"));
 
