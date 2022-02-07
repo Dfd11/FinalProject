@@ -13,13 +13,12 @@ const { token } = require('morgan');
 const { request } = require('express');
 /*----------------------------------------------------------------------------------------------------Routes */
 router.get("/", function(req,res){
-    //res.sendFile(path.join(__dirname,"home.html"));
+
     let token = req.cookies.token || '' ;
     console.log(token)
     axios.get(`http://api.mediastack.com/v1/news?access_key=a50b229b653dcd0bf6070d5ba6d7a944&categories=technology&languages=en,es&limit=5`)
     .then(response =>{
         const apiResponse = response.data;
-        //console.log(apiResponse);
         if (token) {
             res.render('gen_home', { articles : apiResponse.data, userId: true })
         }
@@ -30,28 +29,17 @@ router.get("/", function(req,res){
     }).catch(error => {
         console.log(error);
     });
-    //res.render('/', { articles : newsAPI.data.data }) 
-    //res.render("gen_home")  
 })
 
 router.get("/login", function(req,res){
-    //res.sendFile(path.join(__dirname,"login.html"));
     res.render("login")
 })
 
 router.get("/register", function(req,res){
-    //res.sendFile(path.join(__dirname,"register.html"));
     res.render("register")
 })
 
-router.get("/user/:user", async (req,res) => {                                                       /* VERIFY */
-    //res.sendFile(path.join(__dirname,"home.html"));
-    let user = req.params.user
-    res.render("user",{user})
-})
-
 router.get("/devices", verify, async (req,res) =>{                                                              /* VERIFY */      
- //   res.sendFile(path.join(__dirname,"home.html"));
     let user = req.userId
     
     let devices = await Device.find({user:user})
@@ -62,36 +50,33 @@ router.get("/devices", verify, async (req,res) =>{                              
 })
 
 router.get("/copyright", function(req,res){
-   // res.sendFile(path.join(__dirname,"home.html"));
    res.render(`copyright`)
 })
 
 router.get("/about_us", function(req,res){
-    //res.sendFile(path.join(__dirname,"home.html"));
     res.render("about_us")
 })
 
 router.get("/contact", function(req,res){
-    //res.sendFile(path.join(__dirname,"home.html"));
     res.render("contact")
 })
 
-router.post("/:user/devices", async (req,res) =>{                                                       /* VERIFY */
+router.post("/:user/devices", verify, async (req,res) =>{                                                       
     let device = new Device(req.body)
-    device.user = req.params.user                                                                            /* ADD THE USER ID*/
-    device.deviceIp= "192.168.10.1"                                                                 /* FIND A WAY TO GET RANDOM IP */
+    device.user = req.params.user                                                                            
+    device.deviceIp= "192.168.10.1"                                                                
     console.log(device)
     await device.save()
-    res.redirect(`/devices`, {user: device.user})
+    res.redirect("/devices")
 })
 
-router.get("/delete/:user/:id", async (req,res) =>{                                                   /** VERIFY */
+router.get("/delete/:user/:id",verify, async (req,res) =>{                                                   
     let id = req.params.id
     await Device.remove({_id:id})
-    res.redirect(`/devices`)                                                        
+    res.redirect("/devices")                                                        
 })
 
-router.get("/edit/:user/:id", async (req,res) =>{                                                   /** VERIFY */
+router.get("/edit/:user/:id",verify, async (req,res) =>{                                                   
     let user = req.params.user
     let id = req.params.id
     let device =await Device.findById(id)
@@ -99,7 +84,7 @@ router.get("/edit/:user/:id", async (req,res) =>{                               
     res.render("edit",{device,user,id})                                                        
 })
 
-router.post("/edit/:user/:id", async (req,res) =>{                                                   /** VERIFY */
+router.post("/edit/:user/:id",verify, async (req,res) =>{                                                   
     let user = req.params.user
     let id = req.params.id
     await Device.updateOne({_id:id},req.body)
