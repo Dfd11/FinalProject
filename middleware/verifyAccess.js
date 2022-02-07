@@ -19,9 +19,11 @@ function verifyToken(req,res,next){
             return res.redirect('/login')
         }
         else {
-
+            
             req.userId = datos.id
+            console.log(req.userId)
             next()
+            
         }
 
 

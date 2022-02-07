@@ -9,15 +9,24 @@ let verify = require('../middleware/verifyAccess')
 /*----------------------------------------------------------------------------------------------------Models */
 let Device = require("../model/device");
 const { db } = require('../model/device');
+const { token } = require('morgan');
+const { request } = require('express');
 /*----------------------------------------------------------------------------------------------------Routes */
 router.get("/", function(req,res){
     //res.sendFile(path.join(__dirname,"home.html"));
-    
+    let token = req.cookies.token || '' ;
+    console.log(token)
     axios.get(`http://api.mediastack.com/v1/news?access_key=a50b229b653dcd0bf6070d5ba6d7a944&categories=technology&languages=en,es&limit=5`)
     .then(response =>{
         const apiResponse = response.data;
         //console.log(apiResponse);
-        res.render('gen_home', { articles : apiResponse.data })
+        if (token) {
+            res.render('gen_home', { articles : apiResponse.data, userId: true })
+        }
+        else {
+            res.render('gen_home', { articles : apiResponse.data, userId: false })
+        }
+        
     }).catch(error => {
         console.log(error);
     });
@@ -41,9 +50,9 @@ router.get("/user/:user", async (req,res) => {                                  
     res.render("user",{user})
 })
 
-router.get("/:user/devices", async (req,res) =>{                                                              /* VERIFY */      
+router.get("/devices", verify, async (req,res) =>{                                                              /* VERIFY */      
  //   res.sendFile(path.join(__dirname,"home.html"));
-    let user = req.params.user
+    let user = req.userId
     
     let devices = await Device.find({user:user})
     let locations = await Device.distinct("deviceLocation",{user:user})
@@ -73,13 +82,13 @@ router.post("/:user/devices", async (req,res) =>{                               
     device.deviceIp= "192.168.10.1"                                                                 /* FIND A WAY TO GET RANDOM IP */
     console.log(device)
     await device.save()
-    res.redirect(`/user/${device.user}`)
+    res.redirect(`/devices`, {user: device.user})
 })
 
 router.get("/delete/:user/:id", async (req,res) =>{                                                   /** VERIFY */
     let id = req.params.id
     await Device.remove({_id:id})
-    res.redirect(`/${req.params.user}/devices`)                                                        
+    res.redirect(`/devices`)                                                        
 })
 
 router.get("/edit/:user/:id", async (req,res) =>{                                                   /** VERIFY */
@@ -94,7 +103,7 @@ router.post("/edit/:user/:id", async (req,res) =>{                              
     let user = req.params.user
     let id = req.params.id
     await Device.updateOne({_id:id},req.body)
-    res.redirect(`/${user}/devices`)                                                   
+    res.redirect(`/devices`)                                                   
 })
 
 
@@ -135,7 +144,9 @@ router.post('/addUser', async (req,res) => {
 
     let user = new User (req.body)
 
-    let exists = User.findOne({user_id: user.username})
+    let exists = await User.findOne({username: user.username})
+    console.log(user)
+    console.log(exists)
 
     if (!exists) {
     
