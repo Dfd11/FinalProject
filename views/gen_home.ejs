@@ -1,10 +1,16 @@
 <%- include (`./templates/_header`) %>
 
 <div class="left">
-    <form class="navbar" action="/login" method="GET"><button class="mui-btn mui-btn--primary" id="travel">LOGIN</button></form>
-    <form class="navbar" action="/copyright" method="GET"><button class="mui-btn mui-btn--raised" id="travel">COPYRIGHT</button></form>
-    <form class="navbar" action="/about_us" method="GET"><button class="mui-btn mui-btn--primary" id="travel">ABOUT US</button></form> 
-    <form class="navbar" action="/contact" method="GET"><button class="mui-btn mui-btn--raised" id="travel">CONTACT</button></form>
+    <% if(userId) { %>
+        <form class="navbar" action="/logoff" method="GET"><button class="mui-btn mui-btn--primary" id="travel">LOG OFF</button></form>
+        <form class="navbar" action="/devices" method="GET"><button class="mui-btn mui-btn--raised" id="travel">My Devices</button></form>
+    <%} else { %>
+        <form class="navbar" action="/login" method="GET"><button class="mui-btn mui-btn--raised" id="travel">LOGIN</button></form>
+    <% } %>
+    
+    <form class="navbar" action="/copyright" method="GET"><button class="mui-btn mui-btn--primary" id="travel">COPYRIGHT</button></form>
+    <form class="navbar" action="/about_us" method="GET"><button class="mui-btn mui-btn--raised" id="travel">ABOUT US</button></form> 
+    <form class="navbar" action="/contact" method="GET"><button class="mui-btn mui-btn--primary" id="travel">CONTACT</button></form>
 </div>
 
 <div class="mui-container-fluid" id="news" >
@@ -20,7 +26,7 @@
               <% } else { %>
                   <img src="https://mediastack.com/site_images/mediastack_logo_footer.svg" alt="default image">
               <% } %> 
-              <h3>
+              <h3 class="shorty">
                   <%- article.title %>
               </h3>
               <p>

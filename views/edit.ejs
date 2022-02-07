@@ -1,5 +1,5 @@
 <%- include (`./templates/_header`) %>
-<div>
+<div style="margin: 5%;">
     <form class="mui-form" id="device_form" action="/edit/<%=user%>/<%=id%>" method="post" >
         <div class="mui-textfield">
             <input type="text" name="deviceName" placeholder="Device Name" value="<%= device.deviceName %> ">
@@ -18,7 +18,7 @@
         <button type="submit" class="mui-btn mui-btn--raised">Save Device</button>
         
     </form>
-    <a href="/<%=user%>/devices"><button class="mui-btn mui-btn--raised">Cancel</button></a>
+    <a href="/devices"><button class="mui-btn mui-btn--raised">Cancel</button></a>
 </div>
 <div>
             
